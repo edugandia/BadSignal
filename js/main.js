@@ -6,6 +6,8 @@ window.onload = function() {
   var gameselector = new GameSelector();
 };
 
+var answer
+
 function GameSelector() {
   this.correctMovie = {};
   this.possibleAnswerArray = [];
@@ -43,14 +45,20 @@ GameSelector.prototype.buttonsDOM = function() {
     $("#right-block").append(
       $("<button/>", {
         text: movie,
-        click: function() {
-          console.log(this.innerHTML);
-        }
+        click: function(e) {
+          this.correctAnswer(e.target.innerHTML)
+        }.bind(this)
       })
     );
-  });
+  }.bind(this));
 };
 
-GameSelector.prototype.imageDOM = function(){
-$("#imagen-movie").attr("src",this.correctMovie.image)
-}
+GameSelector.prototype.imageDOM = function() {
+  $("#imagen-movie").attr("src", this.correctMovie.image);
+};
+
+GameSelector.prototype.correctAnswer = function(movieTitle){
+    if (movieTitle === this.correctMovie.title){
+      alert("CORRECTO!!!!!!!")
+    }
+  }
