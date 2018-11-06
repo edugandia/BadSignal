@@ -1,0 +1,77 @@
+@font-face {
+  font-family: "badsignal";
+  src: url(../styles/Bad-Signal.otf) format("truetype");
+}
+@font-face {
+  font-family: "CFLCD";
+  src: url(../styles/CFLCD-Regular.ttf) format("truetype");
+}
+
+body {
+  background-image: url(../images/wallpaper.jpg);
+  background-size: 100%;
+}
+
+header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-around;
+}
+h1 {
+  font-size: 8rem;
+  font-family: "badsignal";
+  color: black;
+  display: flex;
+}
+.b {
+  color: #d6786c;
+}
+.a {
+  color: #3e9d6a;
+}
+.d {
+  color: #50597a;
+}
+
+.general-container {
+  display: flex;
+}
+.movieImg {
+  position: absolute;
+  height: 306px;
+  margin-left: 83px;
+  margin-top: 81px;
+}
+#canvasTv {
+  position: absolute;
+  margin-left: 83px;
+  margin-top: 81px;
+  border: 1px solid red;
+}
+
+.frameTv {
+  z-index: 1;
+  position: absolute;
+  margin: 2rem;
+  height: 27rem;
+}
+
+
+#canvasTimeBar {
+  margin-left: 40px;
+}
+.right-block {
+  display: flex;
+  flex-direction: column;
+}
+button {
+  margin: 3rem auto 0 4rem;
+  width: 30rem;
+  font-family: CFLCD;
+  font-size: 24px;
+  color: black;
+  padding: 20px 30px;
+  background: #3e9d6a;
+  border-radius: 4px;
+  border: 3px solid black;
+}
