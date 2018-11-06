@@ -1,27 +1,43 @@
+var gameSelector
 window.onload = function() {
-  var gameSelector = new GameSelector();
+  gameSelector = new GameSelector();
   gameSelector.start();
 };
 
 function GameSelector() {
+  this.level = 1;
   this.correctMovie = {};
   this.possibleAnswerArray = [];
+  // this.shuffleArray();
 }
 GameSelector.prototype.start = function() {
-  this.randomObject();
+  this.reset()
+  this.trueMovie();
   this.pushAnswerArray();
   this.takeMovie();
   this.buttonsDOM();
   this.imageDOM();
 
-  var canvasDistorsion = new CanvasDistorsion("canvasTv");
+  canvasDistorsion = new CanvasDistorsion("canvasTv");
   canvasDistorsion.start();
   var canvasTime = new CanvasTime("canvasTimeBar");
   canvasTime.start();
 };
 
-GameSelector.prototype.randomObject = function() {
-  this.correctMovie = movies[Math.floor(Math.random() * movies.length)];
+//GameSelector.prototype.shuffleArray =function(){}  PENDIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!
+GameSelector.prototype.reset = function(){
+  this.correctMovie = {};
+  this.possibleAnswerArray.forEach(
+    function(movie) {
+      $("#right-block button").remove();
+    })
+  this.possibleAnswerArray = [];
+  
+
+}
+GameSelector.prototype.trueMovie = function() {
+  this.correctMovie = movies[this.level - 1];
+  // this.correctMovie = movies[Math.floor(Math.random() * movies.length)];
   // this.courseGame = new CourseGame(this.correctMovie);
 };
 
@@ -56,6 +72,7 @@ GameSelector.prototype.buttonsDOM = function() {
       );
     }.bind(this)
   );
+  console.log("Pepe")
 };
 
 GameSelector.prototype.imageDOM = function() {
@@ -64,12 +81,11 @@ GameSelector.prototype.imageDOM = function() {
 
 GameSelector.prototype.correctAnswer = function(movieTitle) {
   if (movieTitle === this.correctMovie.title) {
-    alert("CORRECTO!!!!!!!");
+    canvasDistorsion.clearInterval()
+    this.start();
+   ;
   } else {
     this.lives -= 1;
     alert("fallaste");
   }
-   
-  
 };
-

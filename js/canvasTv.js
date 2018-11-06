@@ -4,6 +4,7 @@ function CanvasDistorsion(id, level) {
   this.fps = 60;
   this.opacity = 1;
   this.counter = 0;
+  this.interval
 }
 
 CanvasDistorsion.prototype.start = function() {
@@ -35,6 +36,10 @@ CanvasDistorsion.prototype.drawWhiteNoise = function() {
       this.ctx.fillRect(j * 10, i * 10, 10, 10);
       this.ctx.closePath();
     }
+  }
+
+  CanvasDistorsion.prototype.clearInterval = function (){
+clearInterval(this.interval)
   }
   // CanvasDistorsion.prototype.reveal = function(){
   //   for (var i = 0; i < 31; i++) {
