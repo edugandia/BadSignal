@@ -6,6 +6,7 @@ window.onload = function() {
 
 function GameSelector() {
   this.level = 1;
+  this.lives = 3;
   this.correctMovie = {};
   this.possibleAnswerArray = [];
   // this.shuffleArray();
@@ -17,6 +18,7 @@ GameSelector.prototype.start = function() {
   this.takeMovie();
   this.buttonsDOM();
   this.imageDOM();
+  this.levelDOM();
 
   canvasDistorsion = new CanvasDistorsion("canvasTv");
   canvasDistorsion.start();
@@ -79,10 +81,22 @@ GameSelector.prototype.imageDOM = function() {
   $("#imagen-movie").attr("src", this.correctMovie.image);
 };
 
+GameSelector.prototype.levelDOM = function(){
+  console.log(this.level)
+  $("span").text(this.level)
+  // document.querySelector("#right-block p").innerHTML = `L2`;
+}
+
 GameSelector.prototype.correctAnswer = function(movieTitle) {
   if (movieTitle === this.correctMovie.title) {
     canvasDistorsion.clearInterval()
-    this.start();
+    canvasDistorsion.ctx.clearRect(0, 0, 408, 306)
+    console.log(canvasDistorsion.opacity)
+
+    setTimeout(function(){
+      this.start();
+      this.level++;
+   }.bind(this),2000)
    ;
   } else {
     this.lives -= 1;

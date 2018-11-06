@@ -8,6 +8,7 @@ function CanvasDistorsion(id, level) {
 }
 
 CanvasDistorsion.prototype.start = function() {
+  this.opacity = 1;
   this.interval = setInterval(
     function() {
       this.ctx.clearRect(0, 0, 408, 306);

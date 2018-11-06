@@ -80,6 +80,9 @@ button {
   font-size: 60px;
   text-align: center;
 }
-#right-block span{
+span{
+  font-family: "badsignal";
+  font-size: 80px;
+  text-align: center;
   color: red;
 }
