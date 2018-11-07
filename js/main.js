@@ -11,41 +11,45 @@ function GameSelector() {
   this.correctMovie = {};
   this.possibleAnswerArray = [];
   this.canvasName = "";
-  // this.shuffleArray();
+  shuffArray = this.shuffleArray(movies);
 }
 GameSelector.prototype.start = function() {
   this.reset();
-  this.trueMovie();
   this.switchCanvas();
   this.pushAnswerArray();
   this.takeMovie();
   this.buttonsDOM();
   this.levelDOM();
   this.pointsDOM();
-  setTimeout(
-    function() {
-      this.imageDOM();
-    }.bind(this),
-    1000
-  );
+  if (this.level !== 20) {
+    setTimeout(
+      function() {
+        this.imageDOM();
+      }.bind(this),
+      1000
+    );
+  }
 
   canvasTime = new CanvasTime("canvasTimeBar");
   canvasTime.start();
 };
+
 GameSelector.prototype.switchCanvas = function() {
   if (this.levelCanvas === 0) {
     canvasDistorsion = new CanvasDistorsion("canvasTv");
     canvasDistorsion.start();
     this.canvasName = canvasDistorsion;
+    this.levelCanvas++;
   } else if (this.levelCanvas === 1) {
     canvasDisapp = new CanvasDisapp("canvasTv");
     canvasDisapp.start();
     this.canvasName = canvasDisapp;
     this.levelCanvas = 0;
   }
+  // canvasWave = new CanvasWave("canvasTv");
+  // canvasWave.start();
+  // this.canvasName = canvasWave;
 };
-
-//GameSelector.prototype.shuffleArray =function(){}  PENDIENTE!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 GameSelector.prototype.reset = function() {
   this.correctMovie = {};
@@ -54,11 +58,17 @@ GameSelector.prototype.reset = function() {
   });
   this.possibleAnswerArray = [];
 };
-GameSelector.prototype.trueMovie = function() {
-  this.correctMovie = movies[this.level - 1];
+
+GameSelector.prototype.shuffleArray = function(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
 };
 
 GameSelector.prototype.pushAnswerArray = function() {
+  this.correctMovie = movies[this.level - 1];
   this.possibleAnswerArray.push(this.correctMovie.title);
 };
 
@@ -72,6 +82,7 @@ GameSelector.prototype.takeMovie = function() {
   } else if (this.possibleAnswerArray.length == 4) {
     return;
   }
+  this.possibleAnswerArray = this.shuffleArray(this.possibleAnswerArray);
   this.takeMovie();
 };
 
@@ -110,10 +121,9 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
     this.canvasName.ctx.clearRect(0, 0, 408, 306);
     setTimeout(
       function() {
-        this.levelCanvas++;
         this.level++;
         this.points += 50;
-        this.points += (500 - parseInt(canvasTime.x));
+        this.points += 500 - parseInt(canvasTime.x);
         $("#imagen-movie").attr("src", "images/giphy.gif");
       }.bind(this),
       2000
@@ -131,7 +141,6 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
     this.canvasName.ctx.clearRect(0, 0, 408, 306);
     setTimeout(
       function() {
-        this.levelCanvas++;
         this.level++;
         $("#imagen-movie").attr("src", "images/noway.gif");
       }.bind(this),
@@ -152,7 +161,6 @@ GameSelector.prototype.timeEnd = function() {
     canvasTime.ctx.clearRect(0, 0, 610, 60);
     this.canvasName.clearInterval();
     this.canvasName.ctx.clearRect(0, 0, 408, 306);
-    this.levelCanvas++;
     this.level++;
     $("#imagen-movie").attr("src", "images/overtime.gif");
     setTimeout(
@@ -161,5 +169,15 @@ GameSelector.prototype.timeEnd = function() {
       }.bind(this),
       4000
     );
+  }
+};
+
+GameSelector.prototype.gameOver = function() {
+  if (this.level === 20) {
+    canvasTime.clearInterval();
+    canvasTime.ctx.clearRect(0, 0, 610, 60);
+    this.canvasName.clearInterval();
+    this.canvasName.ctx.clearRect(0, 0, 408, 306);
+    $("#imagen-movie").attr("src", "images/gameover.png");
   }
 };

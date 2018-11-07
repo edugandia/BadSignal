@@ -3,6 +3,7 @@ function CanvasWave(id,) {
   this.ctx = this.canvas.getContext("2d");
   this.fps = 60;
   this.counter = 0;
+  this.lineCounter = 3;
   this.interval;
 }
 CanvasWave.prototype.start = function() {
@@ -11,24 +12,32 @@ CanvasWave.prototype.start = function() {
       this.ctx.clearRect(0, 0, 408, 306);
       this.drawWave();
       this.counter++;
-      if (this.counter < 816)
-      this.ctx.clearRect(Math.round(Math.random() * 408) - (this.counter/2), Math.round(Math.random() * 306) - (this.counter/2), this.counter, this.counter)
+      if (this.counter % 20 === 0){
+        this.lineCounter -= 0.01;
+      }
     }.bind(this),
     1000 / this.fps
   );
 };
 
 CanvasWave.prototype.drawWave = function() {
-  for (var i = 0; i < 153; i++) {
-    for (var j = 0; j < 102; j++) {
-      var randomGreyScale = Math.round(Math.random() * 255);
-      this.ctx.beginPath();
-      this.ctx.fillStyle = `rgb(${randomGreyScale}, ${randomGreyScale}, ${randomGreyScale})`;
-      this.ctx.fillRect(j * 4, i * 2, 4, 2);
-      this.ctx.closePath();
-    }
+  for (var i = 0; i < 310; i++) {
+    var randomGreyScale = Math.round(Math.random() * 255);
+    this.ctx.strokeStyle = `rgba(${randomGreyScale}, ${randomGreyScale}, ${randomGreyScale}, 0.5)`;
+    this.ctx.lineWidth = this.lineCounter;
+    this.ctx.beginPath();
+    this.ctx.moveTo(100,Math.random() * (308) -100);
+    this.ctx.lineTo(  Math.round(Math.random() * 5),  Math.round(Math.random() * 5));
+    this.ctx.lineTo(  Math.round(Math.random() * 5),  Math.round(Math.random() * 5));
+    this.ctx.lineTo(  Math.round(Math.random() * 5),  Math.round(Math.random() * 5));
+    this.ctx.lineTo(  Math.round(Math.random() * 5),  Math.round(Math.random() * 5));
+    this.ctx.lineTo(  Math.round(Math.random() * 5),  Math.round(Math.random() * 5));
+    this.ctx.lineTo(  Math.round(Math.random() * 5),  Math.round(Math.random() * 5));
+    this.ctx.lineTo(418, Math.random() * (308) -100);
+    this.ctx.stroke();
   }
 };
+
 CanvasWave.prototype.clearInterval = function() {
   clearInterval(this.interval);
 };

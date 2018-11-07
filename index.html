@@ -11,35 +11,39 @@
 </head>
 
 <body>
-  <header>
-    <h1>
-      <p class="b">B</p>
-      <p class="a">A</p>
-      <p class="d">D </p>SIGNAL
-      <p class="b">B</p>
-      <p class="a">A</p>
-      <p class="d">D </p>SIGNAL
-      <p class="b">B</p>
-      <p class="a">A</p>
-      <p class="d">D </p>SIGNAL
-
-    </h1>
-  </header>
-  <div class="general-container">
-    <section class="left-block">
-      <div class="time-bar">
-        <canvas id="canvasTimeBar" width="610" height="60"></canvas>
-      </div>
-      <div>
-        <img class="frameTv" src="images/Marco-TV_2.png" alt="frameTv">
-        <img id="imagen-movie" class="movieImg" src="" alt="movImg">
-        <canvas id="canvasTv" width="408" height="306"></canvas>
-      </div>
-    </section>
-    <section id="right-block">
-      <p>LEVEL <span class="level"></span></p>
-      <p>POINTS <span class="points"></span></p>
-    </section>
+  <div id="start">
+    <!-- <button id="startbutton">START THE GAME</button> -->
+  </div>
+  <div id="main">
+    <header>
+      <h1>
+        <p class="b">B</p>
+        <p class="a">A</p>
+        <p class="d">D </p>SIGNAL
+        <p class="b">B</p>
+        <p class="a">A</p>
+        <p class="d">D </p>SIGNAL
+        <p class="b">B</p>
+        <p class="a">A</p>
+        <p class="d">D </p>SIGNAL
+      </h1>
+    </header>
+    <div class="general-container">
+      <section class="left-block">
+        <div class="time-bar">
+          <canvas id="canvasTimeBar" width="610" height="60"></canvas>
+        </div>
+        <div>
+          <img class="frameTv" src="images/Marco-TV_2.png" alt="frameTv">
+          <img id="imagen-movie" class="movieImg" src="" alt="movImg">
+          <canvas id="canvasTv" width="408" height="306"></canvas>
+        </div>
+      </section>
+      <section id="right-block">
+        <p>LEVEL <span class="level"></span></p>
+        <p>POINTS <span class="points"></span></p>
+      </section>
+    </div>
   </div>
   <script src="js/films.js"></script>
   <script src="js/canvasTv3.js"></script>
