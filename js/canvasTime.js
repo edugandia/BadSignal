@@ -43,7 +43,7 @@ CanvasTime.prototype.moveThunder = function() {
 };
 
 CanvasTime.prototype.drawThunder = function() {
-  this.ctx.drawImage(this.imgThunder, this.x, 0, 60, 60);
+  this.ctx.drawImage(this.imgThunder, this.x, 0, 80, 60);
 };
 CanvasTime.prototype.clearInterval = function() {
   clearInterval(this.interval);
