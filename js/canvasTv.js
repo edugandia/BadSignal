@@ -2,7 +2,7 @@ function CanvasDistorsion(id, level) {
   this.canvas = document.getElementById(id);
   this.ctx = this.canvas.getContext("2d");
   this.fps = 60;
-  this.opacity = 0.9;
+  this.opacity = 1;
   this.counter = 0;
   this.interval;
 }

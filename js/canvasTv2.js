@@ -35,6 +35,6 @@ CanvasDisapp.prototype.clearInterval = function() {
   clearInterval(this.interval);
 };
 
-CanvasDisapp.prototype.clearSquares = function(){
-  this.ctx.clearRect(15,15,15,15)
-}
+// CanvasDisapp.prototype.clearSquares = function(){
+//   this.ctx.clearRect(15,15,15,15)
+// }

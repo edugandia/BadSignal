@@ -4,7 +4,7 @@ function CanvasTime(id) {
   this.fps = 60;
   this.x = 0;
   this.y = 0;
-  this.velThunder = 1;
+  this.velThunder = 1.6;
   this.imgTv = new Image();
   this.imgTv.src = "images/clipart1511622019.png";
   this.imgThunder = new Image();
@@ -18,11 +18,12 @@ CanvasTime.prototype.start = function() {
       this.moveThunder();
       this.drawTv();
       this.drawThunder();
-      // console.log(this.x); la x aumenta pero el rayo no se mueve, puede haber dos canvas a la vez??????
+      gameSelector.timeEnd();
     }.bind(this),
     1000 / this.fps
   );
 };
+
 
 CanvasTime.prototype.clear = function() {
   this.ctx.clearRect(0, 0, 610, 60);
@@ -42,5 +43,8 @@ CanvasTime.prototype.moveThunder = function() {
 };
 
 CanvasTime.prototype.drawThunder = function() {
-  this.ctx.drawImage(this.imgThunder, 0, 0, 60, 60);
+  this.ctx.drawImage(this.imgThunder, this.x, 0, 60, 60);
+};
+CanvasTime.prototype.clearInterval = function() {
+  clearInterval(this.interval);
 };
