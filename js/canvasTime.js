@@ -15,9 +15,10 @@ CanvasTime.prototype.start = function() {
   this.interval = setInterval(
     function() {
       this.clear();
+      this.moveThunder();
       this.drawTv();
-      // this.moveThunder();
       this.drawThunder();
+      // console.log(this.x); la x aumenta pero el rayo no se mueve, puede haber dos canvas a la vez??????
     }.bind(this),
     1000 / this.fps
   );
@@ -32,7 +33,7 @@ CanvasTime.prototype.drawTv = function() {
   this.ctx.beginPath();
   this.ctx.moveTo(0, 32);
   this.ctx.lineTo(550, 32);
-  this.ctx.lineWidth = "4"
+  this.ctx.lineWidth = "4";
   this.ctx.stroke();
 };
 
@@ -41,5 +42,5 @@ CanvasTime.prototype.moveThunder = function() {
 };
 
 CanvasTime.prototype.drawThunder = function() {
-  this.ctx.drawImage(this.imgThunder, this.x, this.y, 60, 60);
+  this.ctx.drawImage(this.imgThunder, 0, 0, 60, 60);
 };

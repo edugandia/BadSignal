@@ -1,46 +1,40 @@
-function CanvasDistorsion(id, level) {
+function CanvasDisapp(id,) {
   this.canvas = document.getElementById(id);
   this.ctx = this.canvas.getContext("2d");
   this.fps = 60;
-  this.opacity = 0.9;
   this.counter = 0;
   this.interval;
 }
 
-CanvasDistorsion.prototype.start = function() {
-  // this.opacity = 1;
+CanvasDisapp.prototype.start = function() {
   this.interval = setInterval(
     function() {
       this.ctx.clearRect(0, 0, 408, 306);
       this.drawWhiteNoise();
-      // this.reveal();
       this.counter++;
-
-      if (this.counter % 2 === 0) {
-        if (this.opacity > 0) {
-          this.opacity = (this.opacity - 0.005).toFixed(3);
-          this.counter = 0;
-        }
-      }
+      if (this.counter < 816)
+      this.ctx.clearRect(Math.round(Math.random() * 408) - (this.counter/2), Math.round(Math.random() * 306) - (this.counter/2), this.counter, this.counter)
     }.bind(this),
     1000 / this.fps
   );
 };
 
-CanvasDistorsion.prototype.drawWhiteNoise = function() {
+CanvasDisapp.prototype.drawWhiteNoise = function() {
   for (var i = 0; i < 153; i++) {
     for (var j = 0; j < 102; j++) {
       var randomGreyScale = Math.round(Math.random() * 255);
       this.ctx.beginPath();
-      this.ctx.fillStyle = `rgba(${randomGreyScale}, ${randomGreyScale}, ${randomGreyScale}, ${
-        this.opacity
-      })`;
+      this.ctx.fillStyle = `rgb(${randomGreyScale}, ${randomGreyScale}, ${randomGreyScale})`;
       this.ctx.fillRect(j * 4, i * 2, 4, 2);
       this.ctx.closePath();
     }
   }
 };
-CanvasDistorsion.prototype.clearInterval = function() {
+
+CanvasDisapp.prototype.clearInterval = function() {
   clearInterval(this.interval);
 };
 
+CanvasDisapp.prototype.clearSquares = function(){
+  this.ctx.clearRect(15,15,15,15)
+}

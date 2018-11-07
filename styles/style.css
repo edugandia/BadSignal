@@ -24,13 +24,13 @@ h1 {
   display: flex;
 }
 .b {
-  color: #d6786c;
+  color: red;
 }
 .a {
-  color: #3e9d6a;
+  color: green;
 }
 .d {
-  color: #50597a;
+  color: blue;
 }
 
 .general-container {
@@ -65,24 +65,31 @@ h1 {
   flex-direction: column;
 }
 button {
-  margin: 2rem auto 0 4rem;
+  margin: 1.8rem auto 0 4rem;
   width: 30rem;
-  font-family: CFLCD;
+  font-family: "CFLCD";
   font-size: 24px;
+  font-weight: bold;
   color: black;
   padding: 20px 30px;
-  background: #3e9d6a;
-  border-radius: 4px;
+  background: green;
+  border-radius: 8px;
   border: 3px solid black;
 }
 #right-block p{
-  font-family: "CFLCD";
+  font-family: "badsignal";
+  margin-left: 65px;
   font-size: 60px;
+  display: inline-block;
   text-align: center;
 }
-span{
-  font-family: "badsignal";
+.level{
   font-size: 80px;
   text-align: center;
   color: red;
+}
+.points{
+  font-size: 80px;
+  text-align: center;
+  color: blue;
 }
