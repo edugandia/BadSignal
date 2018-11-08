@@ -7,7 +7,7 @@
   src: url(../styles/CFLCD-Regular.ttf) format("truetype");
 }
 
-#start{
+#start {
   height: 100vh;
   width: 100vw;
   background-image: url(../images/wallpaper.jpg);
@@ -18,18 +18,17 @@
   background-repeat: no-repeat;
   flex-wrap: wrap;
 }
-#startbutton{
+#startbutton {
   line-height: 50px;
 }
-#startbutton span{
- color: white;
+#startbutton span {
+  color: white;
 }
 
 #inicioCenter {
   display: flex;
   justify-content: space-around;
   align-items: center;
- 
 }
 
 #inicioCenter p {
@@ -40,9 +39,7 @@
   width: 300px;
 }
 
-
-
-#main{
+#main {
   display: none;
 }
 body {
@@ -103,7 +100,6 @@ h1 {
   height: 27rem;
 }
 
-
 #canvasTimeBar {
   margin-left: 40px;
 }
@@ -123,20 +119,32 @@ button {
   border-radius: 8px;
   border: 3px solid black;
 }
-#right-block p{
+#right-block p {
   font-family: "badsignal";
   margin-left: 65px;
   font-size: 60px;
   display: inline-block;
   text-align: center;
 }
-.level{
+.level {
   font-size: 80px;
   text-align: center;
   color: red;
 }
-.points{
+.points {
   font-size: 80px;
   text-align: center;
   color: blue;
+}
+
+#gameover {
+  display: none;
+}
+
+#boxflex {
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }

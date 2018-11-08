@@ -42,9 +42,7 @@ GameSelector.prototype.start = function() {
   canvasTime.start();
 };
 
-GameSelector.prototype.switchBackground = function(){
-
-}
+GameSelector.prototype.switchBackground = function() {};
 
 GameSelector.prototype.switchCanvas = function() {
   //todo: consider adding switch / case statement
@@ -199,7 +197,14 @@ GameSelector.prototype.gameOver = function() {
     this.canvasName.clearInterval();
     this.canvasName.ctx.clearRect(0, 0, 408, 306);
     $("#imagen-movie").attr("src", "images/GameOver.jpg");
+    setTimeout(
+      function() {
+        document.querySelector("#main").style.display = "none";
+        document.querySelector("#gameover").style.display = "block";
+        document.querySelector("#buttonpoints").innerHTML = `TU PUNTUACION ES DE ${this.points}`;
+      }.bind(this),
+      2000
+    );
+
   }
 };
-
-
