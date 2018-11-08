@@ -1,57 +1,94 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="styles/reset.css" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <title>BadSignal</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="styles/reset.css">
-  <link rel="stylesheet" href="styles/style.css">
-  <title>BadSignal</title>
-</head>
-
-<body>
-  <div id="start">
-    <!-- <button id="startbutton">START THE GAME</button> -->
-  </div>
-  <div id="main">
-    <header>
+  <body>
+    <div id="start">
       <h1>
         <p class="b">B</p>
         <p class="a">A</p>
-        <p class="d">D </p>SIGNAL
+        <p class="d">D</p>
+        SIGNAL
         <p class="b">B</p>
         <p class="a">A</p>
-        <p class="d">D </p>SIGNAL
+        <p class="d">D</p>
+        SIGNAL
         <p class="b">B</p>
         <p class="a">A</p>
-        <p class="d">D </p>SIGNAL
+        <p class="d">D</p>
+        SIGNAL
       </h1>
-    </header>
-    <div class="general-container">
-      <section class="left-block">
-        <div class="time-bar">
-          <canvas id="canvasTimeBar" width="610" height="60"></canvas>
-        </div>
-        <div>
-          <img class="frameTv" src="images/Marco-TV_2.png" alt="frameTv">
-          <img id="imagen-movie" class="movieImg" src="" alt="movImg">
-          <canvas id="canvasTv" width="408" height="306"></canvas>
-        </div>
-      </section>
-      <section id="right-block">
-        <p>LEVEL <span class="level"></span></p>
-        <p>POINTS <span class="points"></span></p>
-      </section>
+      <div id="inicioCenter">
+        <button id="startbutton">
+          QUE SE VE EN LA TELE.<br />ACIERTA RAPIDO PARA CONSEGUIR MAS PUNTOS<br /><span
+            >+ START +</span
+          >
+        </button>
+      </div>
+      <h1>
+        <p class="b">B</p>
+        <p class="a">A</p>
+        <p class="d">D</p>
+        SIGNAL
+        <p class="b">B</p>
+        <p class="a">A</p>
+        <p class="d">D</p>
+        SIGNAL
+        <p class="b">B</p>
+        <p class="a">A</p>
+        <p class="d">D</p>
+        SIGNAL
+      </h1>
     </div>
-  </div>
-  <script src="js/films.js"></script>
-  <script src="js/canvasTv3.js"></script>
-  <script src="js/canvasTv2.js"></script>
-  <script src="js/canvasTv.js"></script>
-  <script src="js/canvasTime.js"></script>
-  <script src="js/main.js"></script>
-  <script src="lib/jquery-3.1.1.min.js"></script>
-</body>
 
+    <div id="main">
+      <header>
+        <h1>
+          <p class="b">B</p>
+          <p class="a">A</p>
+          <p class="d">D</p>
+          SIGNAL
+          <p class="b">B</p>
+          <p class="a">A</p>
+          <p class="d">D</p>
+          SIGNAL
+          <p class="b">B</p>
+          <p class="a">A</p>
+          <p class="d">D</p>
+          SIGNAL
+        </h1>
+      </header>
+      <div class="general-container">
+        <section class="left-block">
+          <div class="time-bar">
+            <canvas id="canvasTimeBar" width="610" height="60"></canvas>
+          </div>
+          <div>
+            <img class="frameTv" src="images/Marco-TV_2.png" alt="frameTv" />
+            <img id="imagen-movie" class="movieImg" src="" alt="movImg" />
+            <canvas id="canvasTv" width="408" height="306"></canvas>
+          </div>
+        </section>
+        <section id="right-block">
+          <p>LEVEL <span class="level"></span></p>
+          <p>POINTS <span class="points"></span></p>
+        </section>
+      </div>
+    </div>
+    <script src="js/eventos.js"></script>
+    <script src="js/films.js"></script>
+    <script src="js/canvasTv3.js"></script>
+    <script src="js/canvasTv2.js"></script>
+    <script src="js/canvasTv.js"></script>
+    <script src="js/canvasTime.js"></script>
+    <script src="js/main.js"></script>
+    <script src="lib/jquery-3.1.1.min.js"></script>
+  </body>
 </html>

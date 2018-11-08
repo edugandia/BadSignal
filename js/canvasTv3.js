@@ -1,3 +1,4 @@
+//todo: consider using strategy pattern
 function CanvasWave(id,) {
   this.canvas = document.getElementById(id);
   this.ctx = this.canvas.getContext("2d");
@@ -27,6 +28,7 @@ CanvasWave.prototype.drawWave = function() {
     this.ctx.lineWidth = this.lineCounter;
     this.ctx.beginPath();
     this.ctx.moveTo(100,Math.random() * (308) -100);
+    //todo: consider using a function to avoid repetitions
     this.ctx.lineTo(  Math.round(Math.random() * 5),  Math.round(Math.random() * 5));
     this.ctx.lineTo(  Math.round(Math.random() * 5),  Math.round(Math.random() * 5));
     this.ctx.lineTo(  Math.round(Math.random() * 5),  Math.round(Math.random() * 5));

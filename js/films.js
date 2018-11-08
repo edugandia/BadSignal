@@ -44,7 +44,7 @@ var movies = [
     image: "images/breakingBad.jpg"
   },
   {
-    title: "El Señor de los anillos",
+    title: "El Senor de los anillos",
     class: "real",
     image: "images/elseñordelosanillos.jpg"
   },
@@ -64,7 +64,7 @@ var movies = [
     image: "images/gladiator.jpg"
   },
   {
-    title: "Hijos de la anarquía",
+    title: "Hijos de la anarquia",
     class: "real",
     image: "images/hijosdelaanarquia.jpg"
   },

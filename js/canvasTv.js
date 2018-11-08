@@ -1,3 +1,4 @@
+//todo: consider using strategy pattern
 function CanvasDistorsion(id, level) {
   this.canvas = document.getElementById(id);
   this.ctx = this.canvas.getContext("2d");

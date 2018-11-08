@@ -1,5 +1,5 @@
 var gameSelector;
-window.onload = function() {
+var startGame = function() {
   gameSelector = new GameSelector();
   gameSelector.start();
 };
@@ -13,7 +13,15 @@ function GameSelector() {
   this.canvasName = "";
   shuffArray = this.shuffleArray(movies);
 }
+
+//todo: consider adding a config object\
+/*var GameConfig = {
+  maxLevels: 20,
+  timeSpeed: 0.5
+}*/
+
 GameSelector.prototype.start = function() {
+  this.switchBackground();
   this.reset();
   this.switchCanvas();
   this.pushAnswerArray();
@@ -21,7 +29,7 @@ GameSelector.prototype.start = function() {
   this.buttonsDOM();
   this.levelDOM();
   this.pointsDOM();
-  if (this.level !== 20) {
+  if (this.level !== 10) {
     setTimeout(
       function() {
         this.imageDOM();
@@ -34,7 +42,12 @@ GameSelector.prototype.start = function() {
   canvasTime.start();
 };
 
+GameSelector.prototype.switchBackground = function(){
+
+}
+
 GameSelector.prototype.switchCanvas = function() {
+  //todo: consider adding switch / case statement
   if (this.levelCanvas === 0) {
     canvasDistorsion = new CanvasDistorsion("canvasTv");
     canvasDistorsion.start();
@@ -54,11 +67,13 @@ GameSelector.prototype.switchCanvas = function() {
 GameSelector.prototype.reset = function() {
   this.correctMovie = {};
   this.possibleAnswerArray.forEach(function(movie) {
+    //todo: consider caching DOM elements in recognizable variables as per $righButton = $("#right-block button")
     $("#right-block button").remove();
   });
   this.possibleAnswerArray = [];
 };
 
+//todo: consider moving this logic into a utils class
 GameSelector.prototype.shuffleArray = function(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -67,6 +82,7 @@ GameSelector.prototype.shuffleArray = function(array) {
   return array;
 };
 
+//todo: consider renaming this method, difficult to understand its functionality
 GameSelector.prototype.pushAnswerArray = function() {
   this.correctMovie = movies[this.level - 1];
   this.possibleAnswerArray.push(this.correctMovie.title);
@@ -74,6 +90,7 @@ GameSelector.prototype.pushAnswerArray = function() {
 
 GameSelector.prototype.takeMovie = function() {
   var ranMovie = movies[Math.floor(Math.random() * movies.length)].title;
+  //todo: remove hardcoded values, and move them to config values
   if (
     !this.possibleAnswerArray.includes(ranMovie) &&
     this.possibleAnswerArray.length < 4
@@ -89,6 +106,7 @@ GameSelector.prototype.takeMovie = function() {
 GameSelector.prototype.buttonsDOM = function() {
   this.possibleAnswerArray.forEach(
     function(movie) {
+      //todo: remember jquery cached variables convention (with $)
       $("#right-block").append(
         $("<button/>", {
           text: movie,
@@ -101,6 +119,7 @@ GameSelector.prototype.buttonsDOM = function() {
   );
 };
 
+//todo: remember improving the function naming, example setCurrentGameplayImage
 GameSelector.prototype.imageDOM = function() {
   $("#imagen-movie").attr("src", this.correctMovie.image);
 };
@@ -114,6 +133,7 @@ GameSelector.prototype.pointsDOM = function() {
 };
 
 GameSelector.prototype.correctAnswer = function(movieTitle) {
+  //todo: consider splitting this funcionality into two private functions
   if (movieTitle === this.correctMovie.title) {
     canvasTime.clearInterval();
     canvasTime.ctx.clearRect(0, 0, 610, 60);
@@ -173,11 +193,13 @@ GameSelector.prototype.timeEnd = function() {
 };
 
 GameSelector.prototype.gameOver = function() {
-  if (this.level === 20) {
+  if (this.level === 10) {
     canvasTime.clearInterval();
     canvasTime.ctx.clearRect(0, 0, 610, 60);
     this.canvasName.clearInterval();
     this.canvasName.ctx.clearRect(0, 0, 408, 306);
-    $("#imagen-movie").attr("src", "images/gameover.png");
+    $("#imagen-movie").attr("src", "images/GameOver.jpg");
   }
 };
+
+
