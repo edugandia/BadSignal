@@ -141,6 +141,7 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
     canvasTime.ctx.clearRect(0, 0, 610, 60);
     this.canvasName.clearInterval();
     this.canvasName.ctx.clearRect(0, 0, 408, 306);
+    mistery.play();
     setTimeout(
       function() {
         this.level++;
@@ -148,34 +149,36 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
         this.points += 50;
         this.points += 500 - parseInt(canvasTime.x);
         $("#imagen-movie").attr("src", "images/giphy.gif");
-        clap.play()
+        clap.play();
       }.bind(this),
-      2000
+      5000
     );
     setTimeout(
       function() {
         this.start();
       }.bind(this),
-      4000
+      7000
     );
   } else {
     canvasTime.clearInterval();
     canvasTime.ctx.clearRect(0, 0, 610, 60);
     this.canvasName.clearInterval();
     this.canvasName.ctx.clearRect(0, 0, 408, 306);
+    mistery.play();
     setTimeout(
       function() {
         this.level++;
 
         $("#imagen-movie").attr("src", "images/noway.gif");
+        wrong.play();
       }.bind(this),
-      2000
+      5000
     );
     setTimeout(
       function() {
         this.start();
       }.bind(this),
-      4000
+      7000
     );
   }
 };
@@ -188,6 +191,7 @@ GameSelector.prototype.timeEnd = function() {
     this.canvasName.ctx.clearRect(0, 0, 408, 306);
     this.level++;
     $("#imagen-movie").attr("src", "images/overtime.gif");
+    timeOut.play();
     setTimeout(
       function() {
         this.start();
