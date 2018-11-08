@@ -29,7 +29,7 @@ GameSelector.prototype.start = function() {
   this.buttonsDOM();
   this.levelDOM();
   this.pointsDOM();
-  if (this.level !== 10) {
+  if (this.level !== 5) {
     setTimeout(
       function() {
         this.imageDOM();
@@ -191,7 +191,7 @@ GameSelector.prototype.timeEnd = function() {
 };
 
 GameSelector.prototype.gameOver = function() {
-  if (this.level === 10) {
+  if (this.level === 5) {
     canvasTime.clearInterval();
     canvasTime.ctx.clearRect(0, 0, 610, 60);
     this.canvasName.clearInterval();
@@ -200,7 +200,7 @@ GameSelector.prototype.gameOver = function() {
     setTimeout(
       function() {
         document.querySelector("#main").style.display = "none";
-        document.querySelector("#gameover").style.display = "block";
+        document.querySelector("#gameover").style.display = "flex";
         document.querySelector("#buttonpoints").innerHTML = `TU PUNTUACION ES DE ${this.points}`;
       }.bind(this),
       2000
