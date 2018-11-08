@@ -1,0 +1,1 @@
+var clap = new Audio("./audios/apalusos.mp3")

@@ -42,7 +42,7 @@
   display: none;
 }
 body {
-  background-image: url(../images/wallpaper.jpg);
+  background-image: url("../images/wallpaper.jpg");
   background-size: 100%;
 }
 
@@ -51,15 +51,16 @@ header {
   align-items: flex-end;
   justify-content: space-around;
 }
-/* h1:hover{
+h1{
   animation: move 1s;
   animation-iteration-count: infinite;
   position: relative;
 }
 @keyframes move{
   50% {
-    transform: translateZ(5px);
-  } */
+    transform: translateY(-10px);
+  }
+}
 h1 {
   font-size: 8rem;
   font-family: "badsignal";
@@ -147,6 +148,9 @@ button {
   flex-wrap: wrap;
 }
 
-#buttonpoints{
+#buttonpoints {
+  font-family: "badsignal";
+  font-size: 80px;
+  color: red;
   margin: 0 auto;
 }

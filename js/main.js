@@ -12,6 +12,7 @@ function GameSelector() {
   this.possibleAnswerArray = [];
   this.canvasName = "";
   shuffArray = this.shuffleArray(movies);
+  this.true = 0;
 }
 
 //todo: consider adding a config object\
@@ -42,7 +43,9 @@ GameSelector.prototype.start = function() {
   canvasTime.start();
 };
 
-GameSelector.prototype.switchBackground = function() {};
+GameSelector.prototype.switchBackground = function() {
+$("body").switchBackground
+};
 
 GameSelector.prototype.switchCanvas = function() {
   //todo: consider adding switch / case statement
@@ -51,7 +54,8 @@ GameSelector.prototype.switchCanvas = function() {
     canvasDistorsion.start();
     this.canvasName = canvasDistorsion;
     this.levelCanvas++;
-  } else if (this.levelCanvas === 1) {
+      $("body").css('background-image', 'url(images/background-two.jpg)');
+    } else if (this.levelCanvas === 1) {
     canvasDisapp = new CanvasDisapp("canvasTv");
     canvasDisapp.start();
     this.canvasName = canvasDisapp;
@@ -140,9 +144,11 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
     setTimeout(
       function() {
         this.level++;
+        this.true++;
         this.points += 50;
         this.points += 500 - parseInt(canvasTime.x);
         $("#imagen-movie").attr("src", "images/giphy.gif");
+        clap.play()
       }.bind(this),
       2000
     );
@@ -160,6 +166,7 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
     setTimeout(
       function() {
         this.level++;
+
         $("#imagen-movie").attr("src", "images/noway.gif");
       }.bind(this),
       2000
@@ -201,7 +208,7 @@ GameSelector.prototype.gameOver = function() {
       function() {
         document.querySelector("#main").style.display = "none";
         document.querySelector("#gameover").style.display = "flex";
-        document.querySelector("#buttonpoints").innerHTML = `TU PUNTUACION ES DE ${this.points}`;
+        document.querySelector("#buttonpoints").innerHTML = `TU PUNTUACION ES DE ${this.points}. HAS ACERTADO ${this.true} DE ${this.level - 1} `;
       }.bind(this),
       2000
     );
