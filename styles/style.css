@@ -45,7 +45,7 @@ h1 {
   animation: move 1s;
   animation-iteration-count: infinite;
   position: relative;
-  font-size: 8rem;
+  font-size: 7rem;
   font-family: "badsignal";
   color: black;
   display: flex;
