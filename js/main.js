@@ -30,7 +30,7 @@ GameSelector.prototype.start = function() {
   this.buttonsDOM();
   this.levelDOM();
   this.pointsDOM();
-  if (this.level !== 5) {
+  if (this.level !== 6) {
     setTimeout(
       function() {
         this.imageDOM();
@@ -44,26 +44,33 @@ GameSelector.prototype.start = function() {
 };
 
 GameSelector.prototype.switchBackground = function() {
-$("body").switchBackground
+  $("body").switchBackground;
 };
 
 GameSelector.prototype.switchCanvas = function() {
-  //todo: consider adding switch / case statement
-  if (this.levelCanvas === 0) {
-    canvasDistorsion = new CanvasDistorsion("canvasTv");
-    canvasDistorsion.start();
-    this.canvasName = canvasDistorsion;
-    this.levelCanvas++;
-      $("body").css('background-image', 'url(images/background-two.jpg)');
-    } else if (this.levelCanvas === 1) {
-    canvasDisapp = new CanvasDisapp("canvasTv");
-    canvasDisapp.start();
-    this.canvasName = canvasDisapp;
-    this.levelCanvas = 0;
+  switch (this.levelCanvas) {
+    case 0:
+      canvasDistorsion = new CanvasDistorsion("canvasTv");
+      canvasDistorsion.start();
+      this.canvasName = canvasDistorsion;
+      this.levelCanvas++;
+      $("body").css("background-image", "url(images/wallpaper.jpg)");
+      break;
+    case 1:
+      canvasDisapp = new CanvasDisapp("canvasTv");
+      canvasDisapp.start();
+      this.canvasName = canvasDisapp;
+      this.levelCanvas++;
+      $("body").css("background-image", "url(images/background-2.jpg)");
+      break;
+    case 2:
+      canvasWave = new CanvasDisappBlack("canvasTv");
+      canvasWave.start();
+      this.canvasName = canvasWave;
+      this.levelCanvas = 0;
+      $("body").css("background-image", "url(images/background-3.jpg)");
+      break;
   }
-  // canvasWave = new CanvasWave("canvasTv");
-  // canvasWave.start();
-  // this.canvasName = canvasWave;
 };
 
 GameSelector.prototype.reset = function() {
@@ -202,7 +209,7 @@ GameSelector.prototype.timeEnd = function() {
 };
 
 GameSelector.prototype.gameOver = function() {
-  if (this.level === 5) {
+  if (this.level === 6) {
     canvasTime.clearInterval();
     canvasTime.ctx.clearRect(0, 0, 610, 60);
     this.canvasName.clearInterval();
@@ -212,10 +219,11 @@ GameSelector.prototype.gameOver = function() {
       function() {
         document.querySelector("#main").style.display = "none";
         document.querySelector("#gameover").style.display = "flex";
-        document.querySelector("#buttonpoints").innerHTML = `TU PUNTUACION ES DE ${this.points}. HAS ACERTADO ${this.true} DE ${this.level - 1} `;
+        document.querySelector("#buttonpoints").innerHTML = `HAS COSEGUIDO ${
+          this.points
+        }PUNTOS. ACERTASTE ${this.true} DE ${this.level - 1} PRUEBAS.`;
       }.bind(this),
       2000
     );
-
   }
 };

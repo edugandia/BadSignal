@@ -2,6 +2,7 @@
   font-family: "badsignal";
   src: url(../styles/Bad-Signal.otf) format("truetype");
 }
+
 @font-face {
   font-family: "CFLCD";
   src: url(../styles/CFLCD-Regular.ttf) format("truetype");
@@ -17,25 +18,14 @@
   background-repeat: no-repeat;
   flex-wrap: wrap;
 }
+
 #startbutton {
+ font-size: 40px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
   line-height: 50px;
 }
 #startbutton span {
   color: white;
-}
-
-#inicioCenter {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-}
-
-#inicioCenter p {
-  font-family: "CFLCD";
-  width: 100vw;
-  font-size: 24px;
-  font-weight: bold;
-  width: 300px;
 }
 
 #main {
@@ -51,22 +41,21 @@ header {
   align-items: flex-end;
   justify-content: space-around;
 }
-h1{
+h1 {
   animation: move 1s;
   animation-iteration-count: infinite;
   position: relative;
-}
-@keyframes move{
-  50% {
-    transform: translateY(-10px);
-  }
-}
-h1 {
   font-size: 8rem;
   font-family: "badsignal";
   color: black;
   display: flex;
 }
+@keyframes move {
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
 .b {
   color: red;
 }
@@ -115,7 +104,7 @@ button {
   font-weight: bold;
   color: black;
   padding: 20px 30px;
-  background: green;
+  background: rgba(0, 128, 0, 0.699);
   border-radius: 8px;
   border: 3px solid black;
 }
@@ -149,8 +138,7 @@ button {
 }
 
 #buttonpoints {
-  font-family: "badsignal";
-  font-size: 80px;
-  color: red;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  font-size: 60px;
   margin: 0 auto;
 }
