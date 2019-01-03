@@ -19,7 +19,6 @@ CanvasTime.prototype.start = function() {
       this.drawTv();
       this.drawThunder();
       gameSelector.timeEnd();
-      gameSelector.gameOver();
     }.bind(this),
     1000 / this.fps
   );

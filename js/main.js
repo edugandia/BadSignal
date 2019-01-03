@@ -1,7 +1,9 @@
+
 var startGame = function() {
   gameSelector = new GameSelector();
   gameSelector.start();
 };
+
 
 function GameSelector() {
   this.currentLevel = 1;
@@ -14,25 +16,28 @@ function GameSelector() {
   this.shuffleArray = shuffleArray(movies);
 }
 
+
 GameSelector.prototype.start = function() {
+  if (this.currentLevel !== GameConfig.maxLevels) {
   this.reset();
   this.switchCanvas();
   this.answersGenerator();
   this.buttonsGenerator();
   this.levelPainter();
   this.scorePainter();
-  if (this.currentLevel !== GameConfig.maxLevels) {
     setTimeout(
       function() {
         this.imageGenerator();
       }.bind(this),
       1000
     );
+    canvasTime = new CanvasTime("canvasTimeBar");
+    canvasTime.start();
+  } else {
+    this.gameOver();
   }
-
-  canvasTime = new CanvasTime("canvasTimeBar");
-  canvasTime.start();
 };
+
 
 GameSelector.prototype.switchCanvas = function() {
   var levelBackground = document.getElementsByTagName("body")[0];
@@ -62,12 +67,14 @@ GameSelector.prototype.switchCanvas = function() {
   }
 };
 
+
 GameSelector.prototype.reset = function() {
   this.correctMovie = {};
   this.possibleMovies = [];
   //SUSTITUIR REMOVE SIN JQUERY
   $("#right-block button").remove();
 };
+
 
 GameSelector.prototype.answersGenerator = function() {
   this.correctMovie = this.shuffleArray[this.currentLevel - 1];
@@ -89,15 +96,15 @@ GameSelector.prototype.answersGenerator = function() {
   this.pickMovies();
 };
 
+
 GameSelector.prototype.buttonsGenerator = function() {
-  var $buttons = document.getElementById("#right-block");
-  this.possibleMovies.forEach(
-    function(movie) {
-      $buttons.append(
+  this.possibleMovies.forEach(function(movie) {
+      $("#right-block").append(
         $("<button/>", {
           text: movie,
           click: function(e) {
             this.correctAnswer(e.target.innerHTML);
+            this.endOfTurn();
           }.bind(this)
         })
       );
@@ -105,16 +112,34 @@ GameSelector.prototype.buttonsGenerator = function() {
   );
 };
 
-//todo: remember improving the function naming, example setCurrentGameplayImage
+
+GameSelector.prototype.imageGenerator = function() {
+  $("#imagen-movie").attr("src", this.correctMovie.image);
+};
+
+
+GameSelector.prototype.levelPainter = function() {
+  $(".level").text(this.currentLevel);
+};
+
+
+GameSelector.prototype.scorePainter = function() {
+  $(".score").text(this.score);
+};
+
+
+GameSelector.prototype.endOfTurn = function(){
+  canvasTime.clearInterval();
+  canvasTime.ctx.clearRect(0, 0, 610, 60);
+  this.canvasName.clearInterval();
+  this.canvasName.ctx.clearRect(0, 0, 408, 306);
+}
+
 
 GameSelector.prototype.correctAnswer = function(movieTitle) {
   //todo: consider splitting this funcionality into two private functions
+  mistery.play();
   if (movieTitle === this.correctMovie.title) {
-    canvasTime.clearInterval();
-    canvasTime.ctx.clearRect(0, 0, 610, 60);
-    this.canvasName.clearInterval();
-    this.canvasName.ctx.clearRect(0, 0, 408, 306);
-    mistery.play();
     setTimeout(
       function() {
         this.currentLevel++;
@@ -133,15 +158,9 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
       7000
     );
   } else {
-    canvasTime.clearInterval();
-    canvasTime.ctx.clearRect(0, 0, 610, 60);
-    this.canvasName.clearInterval();
-    this.canvasName.ctx.clearRect(0, 0, 408, 306);
-    mistery.play();
     setTimeout(
       function() {
         this.currentLevel++;
-
         $("#imagen-movie").attr("src", "images/noway.gif");
         wrong.play();
       }.bind(this),
@@ -156,36 +175,22 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
   }
 };
 
-GameSelector.prototype.imageGenerator = function() {
-  $("#imagen-movie").attr("src", this.correctMovie.image);
-};
-
-GameSelector.prototype.levelPainter = function() {
-  $(".level").text(this.currentLevel);
-};
-
-GameSelector.prototype.scorePainter = function() {
-  $(".score").text(this.score);
-};
-
 
 GameSelector.prototype.timeEnd = function() {
   if (canvasTime.x > 520) {
-    canvasTime.clearInterval();
-    canvasTime.ctx.clearRect(0, 0, 610, 60);
-    this.canvasName.clearInterval();
-    this.canvasName.ctx.clearRect(0, 0, 408, 306);
+    this.endOfTurn();
     this.currentLevel++;
     $("#imagen-movie").attr("src", "images/overtime.gif");
     timeOut.play();
     setTimeout(
-      function() {
+      function() {  
         this.start();
       }.bind(this),
       4000
     );
   }
 };
+
 
 GameSelector.prototype.gameOver = function() {
   if (this.currentLevel === GameConfig.maxLevels) {
