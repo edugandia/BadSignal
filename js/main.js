@@ -1,39 +1,30 @@
-var gameSelector;
 var startGame = function() {
   gameSelector = new GameSelector();
   gameSelector.start();
 };
 
 function GameSelector() {
-  this.level = 1;
-  this.levelCanvas = 0;
-  this.points = 0;
-  this.correctMovie = {};
-  this.possibleAnswerArray = [];
+  this.currentLevel = 1;
+  this.canvasLevel = 0;
   this.canvasName = "";
-  shuffArray = this.shuffleArray(movies);
-  this.true = 0;
+  this.score = 0;
+  this.correctMovie = {};
+  this.possibleMovies = [];
+  this.rightAnswers = 0;
+  this.shuffleArray = shuffleArray(movies);
 }
 
-//todo: consider adding a config object\
-/*var GameConfig = {
-  maxLevels: 20,
-  timeSpeed: 0.5
-}*/
-
 GameSelector.prototype.start = function() {
-  this.switchBackground();
   this.reset();
   this.switchCanvas();
-  this.pushAnswerArray();
-  this.takeMovie();
-  this.buttonsDOM();
-  this.levelDOM();
-  this.pointsDOM();
-  if (this.level !== 6) {
+  this.answersGenerator();
+  this.buttonsGenerator();
+  this.levelPainter();
+  this.scorePainter();
+  if (this.currentLevel !== GameConfig.maxLevels) {
     setTimeout(
       function() {
-        this.imageDOM();
+        this.imageGenerator();
       }.bind(this),
       1000
     );
@@ -43,80 +34,66 @@ GameSelector.prototype.start = function() {
   canvasTime.start();
 };
 
-GameSelector.prototype.switchBackground = function() {
-  $("body").switchBackground;
-};
-
 GameSelector.prototype.switchCanvas = function() {
-  switch (this.levelCanvas) {
+  var levelBackground = document.getElementsByTagName("body")[0];
+
+  switch (this.canvasLevel) {
     case 0:
       canvasDistorsion = new CanvasDistorsion("canvasTv");
       canvasDistorsion.start();
       this.canvasName = canvasDistorsion;
-      this.levelCanvas++;
-      $("body").css("background-image", "url(images/wallpaper.jpg)");
+      this.canvasLevel++;
+      levelBackground.style.backgroundImage = "url(images/wallpaper.jpg)";
       break;
     case 1:
       canvasDisapp = new CanvasDisapp("canvasTv");
       canvasDisapp.start();
       this.canvasName = canvasDisapp;
-      this.levelCanvas++;
-      $("body").css("background-image", "url(images/background-2.jpg)");
+      this.canvasLevel++;
+      levelBackground.style.backgroundImage = "url(images/background-2.jpg)";
       break;
     case 2:
       canvasWave = new CanvasDisappBlack("canvasTv");
       canvasWave.start();
       this.canvasName = canvasWave;
-      this.levelCanvas = 0;
-      $("body").css("background-image", "url(images/background-3.jpg)");
+      this.canvasLevel = 0;
+      levelBackground.style.backgroundImage = "url(images/background-3.jpg)";
       break;
   }
 };
 
 GameSelector.prototype.reset = function() {
   this.correctMovie = {};
-  this.possibleAnswerArray.forEach(function(movie) {
-    //todo: consider caching DOM elements in recognizable variables as per $righButton = $("#right-block button")
-    $("#right-block button").remove();
-  });
-  this.possibleAnswerArray = [];
+  this.possibleMovies = [];
+  //SUSTITUIR REMOVE SIN JQUERY
+  $("#right-block button").remove();
 };
 
-//todo: consider moving this logic into a utils class
-GameSelector.prototype.shuffleArray = function(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
-  }
-  return array;
+GameSelector.prototype.answersGenerator = function() {
+  this.correctMovie = this.shuffleArray[this.currentLevel - 1];
+  this.possibleMovies.push(this.correctMovie.title);
+  //QUITAR EL PROTOTYPE DE LA FUNCION PICKERMOVIES
+  GameSelector.prototype.pickMovies = function() {
+    var ranMovie = movies[Math.floor(Math.random() * movies.length)].title;
+    if (
+      !this.possibleMovies.includes(ranMovie) &&
+      this.possibleMovies.length < GameConfig.possibleAnswers
+    ) {
+      this.possibleMovies.push(ranMovie);
+    } else if (this.possibleMovies.length == GameConfig.possibleAnswers) {
+      return;
+    }
+    this.pickMovies();
+    this.possibleMovies = shuffleArray(this.possibleMovies);
+  };
+  this.pickMovies();
 };
 
-//todo: consider renaming this method, difficult to understand its functionality
-GameSelector.prototype.pushAnswerArray = function() {
-  this.correctMovie = movies[this.level - 1];
-  this.possibleAnswerArray.push(this.correctMovie.title);
-};
-
-GameSelector.prototype.takeMovie = function() {
-  var ranMovie = movies[Math.floor(Math.random() * movies.length)].title;
-  //todo: remove hardcoded values, and move them to config values
-  if (
-    !this.possibleAnswerArray.includes(ranMovie) &&
-    this.possibleAnswerArray.length < 4
-  ) {
-    this.possibleAnswerArray.push(ranMovie);
-  } else if (this.possibleAnswerArray.length == 4) {
-    return;
-  }
-  this.possibleAnswerArray = this.shuffleArray(this.possibleAnswerArray);
-  this.takeMovie();
-};
-
-GameSelector.prototype.buttonsDOM = function() {
-  this.possibleAnswerArray.forEach(
+GameSelector.prototype.buttonsGenerator = function() {
+  var $buttons = document.getElementById("#right-block");
+  this.possibleMovies.forEach(
     function(movie) {
-      //todo: remember jquery cached variables convention (with $)
-      $("#right-block").append(
+      $buttons.append(
         $("<button/>", {
           text: movie,
           click: function(e) {
@@ -129,17 +106,6 @@ GameSelector.prototype.buttonsDOM = function() {
 };
 
 //todo: remember improving the function naming, example setCurrentGameplayImage
-GameSelector.prototype.imageDOM = function() {
-  $("#imagen-movie").attr("src", this.correctMovie.image);
-};
-
-GameSelector.prototype.levelDOM = function() {
-  $(".level").text(this.level);
-};
-
-GameSelector.prototype.pointsDOM = function() {
-  $(".points").text(this.points);
-};
 
 GameSelector.prototype.correctAnswer = function(movieTitle) {
   //todo: consider splitting this funcionality into two private functions
@@ -151,10 +117,10 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
     mistery.play();
     setTimeout(
       function() {
-        this.level++;
-        this.true++;
-        this.points += 50;
-        this.points += 500 - parseInt(canvasTime.x);
+        this.currentLevel++;
+        this.rightAnswers++;
+        this.score += 50;
+        this.score += 500 - parseInt(canvasTime.x);
         $("#imagen-movie").attr("src", "images/giphy.gif");
         clap.play();
       }.bind(this),
@@ -174,7 +140,7 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
     mistery.play();
     setTimeout(
       function() {
-        this.level++;
+        this.currentLevel++;
 
         $("#imagen-movie").attr("src", "images/noway.gif");
         wrong.play();
@@ -190,13 +156,26 @@ GameSelector.prototype.correctAnswer = function(movieTitle) {
   }
 };
 
+GameSelector.prototype.imageGenerator = function() {
+  $("#imagen-movie").attr("src", this.correctMovie.image);
+};
+
+GameSelector.prototype.levelPainter = function() {
+  $(".level").text(this.currentLevel);
+};
+
+GameSelector.prototype.scorePainter = function() {
+  $(".score").text(this.score);
+};
+
+
 GameSelector.prototype.timeEnd = function() {
   if (canvasTime.x > 520) {
     canvasTime.clearInterval();
     canvasTime.ctx.clearRect(0, 0, 610, 60);
     this.canvasName.clearInterval();
     this.canvasName.ctx.clearRect(0, 0, 408, 306);
-    this.level++;
+    this.currentLevel++;
     $("#imagen-movie").attr("src", "images/overtime.gif");
     timeOut.play();
     setTimeout(
@@ -209,7 +188,7 @@ GameSelector.prototype.timeEnd = function() {
 };
 
 GameSelector.prototype.gameOver = function() {
-  if (this.level === 6) {
+  if (this.currentLevel === GameConfig.maxLevels) {
     canvasTime.clearInterval();
     canvasTime.ctx.clearRect(0, 0, 610, 60);
     this.canvasName.clearInterval();
@@ -220,10 +199,11 @@ GameSelector.prototype.gameOver = function() {
         document.querySelector("#main").style.display = "none";
         document.querySelector("#gameover").style.display = "flex";
         document.querySelector("#buttonpoints").innerHTML = `HAS COSEGUIDO ${
-          this.points
-        }PUNTOS. ACERTASTE ${this.true} DE ${this.level - 1} PRUEBAS.`;
+          this.score
+        }PUNTOS. ACERTASTE ${this.rightAnswers} DE ${this.level - 1} PRUEBAS.`;
       }.bind(this),
       2000
     );
   }
 };
+
